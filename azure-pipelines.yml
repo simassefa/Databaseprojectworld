@@ -24,6 +24,14 @@ steps:
   inputs:
     versionSpec: '$(python.version)'
   displayName: 'Use Python $(python.version)'
+- task: SqlAzureDacpacDeployment@1
+  inputs:
+    azureSubscription: 'azureseviceconnection'
+    AuthenticationType: 'connectionString'
+    ConnectionString: 'Server=tcp:azuresqlserverdev1.database.windows.net,1433;Initial Catalog=AzureSQLDB;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;Authentication="Active Directory Default";'
+    deployType: 'DacpacTask'
+    DeploymentAction: 'Publish'
+    IpDetectionMethod: 'AutoDetect'
 
 - script: |
     python -m pip install --upgrade pip
